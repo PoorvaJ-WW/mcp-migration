@@ -1,5 +1,9 @@
 # mcp-migration
 
+[![PyPI](https://img.shields.io/pypi/v/mcp-migration)](https://pypi.org/project/mcp-migration/)
+[![CI](https://github.com/PoorvaJ-WW/mcp-migration/actions/workflows/ci.yml/badge.svg)](https://github.com/PoorvaJ-WW/mcp-migration/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/pypi/pyversions/mcp-migration)](https://pypi.org/project/mcp-migration/)
+
 **Is your MCP server ready for the 2026-07-28 spec?**
 
 The [2026-07-28 revision](https://modelcontextprotocol.io/specification/draft/changelog)
