@@ -1,4 +1,4 @@
-"""Rule registry and finding types for mcp-ready.
+"""Rule registry and finding types for mcp-migration.
 
 Every rule maps to a concrete change in the MCP 2026-07-28 specification
 (release candidate locked 2026-05-21). Severities:

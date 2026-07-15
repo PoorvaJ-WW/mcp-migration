@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from mcp_ready.manifests import scan_manifest
+from mcp_migration.manifests import scan_manifest
 
 
 def _scan(tmp_path: Path, name: str, content: str):
@@ -23,7 +23,7 @@ def test_python_v2_pin_clean(tmp_path):
 
 def test_similar_package_names_ignored(tmp_path):
     assert _scan(tmp_path, "requirements.txt",
-                 "fastmcp>=1.0\nmcp-ready==0.1.0\n") == []
+                 "fastmcp>=1.0\nmcp-migration==0.1.0\n") == []
 
 
 def test_extras_pin_flagged(tmp_path):

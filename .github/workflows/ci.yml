@@ -18,4 +18,4 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e ".[dev]"
       - run: pytest tests/ -q
-      - run: mcp-ready rules
+      - run: mcp-migration rules

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mcp_ready.cli import main
+from mcp_migration.cli import main
 
 STATEFUL = '''
 from mcp.server.fastmcp import FastMCP

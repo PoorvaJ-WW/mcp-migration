@@ -1,4 +1,4 @@
-# mcp-ready
+# mcp-migration
 
 **Is your MCP server ready for the 2026-07-28 spec?**
 
@@ -9,14 +9,14 @@ gone, any request can land on any server instance, list responses must carry
 cache metadata, and Roots/Sampling/Logging are deprecated. Nearly every
 existing server was written against the stateful spec.
 
-`mcp-ready` finds your hidden session dependencies before your clients do:
+`mcp-migration` finds your hidden session dependencies before your clients do:
 
-- **`mcp-ready scan <path>`** — static scan of a server's source tree
+- **`mcp-migration scan <path>`** — static scan of a server's source tree
   (Python, TypeScript, Go, C#, Java, ...). Flags removed protocol features,
   deprecated primitives, pre-2.0 SDK pins, and — for Python — the classic
   hazard: **in-memory state mutated inside tool handlers**, which silently
   breaks once requests stop sticking to one instance.
-- **`mcp-ready probe <url>`** — points at a *running* Streamable HTTP server,
+- **`mcp-migration probe <url>`** — points at a *running* Streamable HTTP server,
   speaks the old protocol to it, and reports a readiness checklist: does it
   mint sessions, does it refuse sessionless requests, does it emit
   `ttlMs`/`cacheScope`/`resultType`, does it implement `server/discover`,
@@ -28,13 +28,13 @@ instead. Zero dependencies, Python ≥ 3.10.
 ## Install
 
 ```
-pip install mcp-ready
+pip install mcp-migration
 ```
 
 ## Scan a source tree
 
 ```
-$ mcp-ready scan path/to/server
+$ mcp-migration scan path/to/server
 server.py:12 warning S004 handler 'add_to_basket' mutates module-level 'BASKETS' — this state is lost when requests land on another instance
 transport.py:88 blocker S001 references the removed Mcp-Session-Id header
 pyproject.toml:14 info C302 python `mcp` requirement '>=1.2.0' predates the 2026-07-28 line — test against mcp==2.0.0b1
@@ -47,13 +47,13 @@ drops straight into CI. `--format json` for machines, `--format md` for a
 migration report you can paste into an issue:
 
 ```
-mcp-ready scan . --format md > MIGRATION.md
+mcp-migration scan . --format md > MIGRATION.md
 ```
 
 ## Probe a live server
 
 ```
-$ mcp-ready probe https://example.com/mcp
+$ mcp-migration probe https://example.com/mcp
 MCP 2026-07-28 readiness probe — https://example.com/mcp
 
 [FAIL] No protocol-level session
@@ -86,16 +86,16 @@ Authenticated servers: `--header 'Authorization: Bearer ...'` (repeatable).
 | C302 | info | SDK pinned below the 2026-07-28 beta line |
 | C303–C307 | info | New-spec adoption: `ttlMs`/`cacheScope`, `resultType`, `server/discover`, deterministic tool order, legacy GET stream |
 
-`mcp-ready rules` prints the full list with migration hints.
+`mcp-migration rules` prints the full list with migration hints.
 
 ## What it is not
 
 - Not a conformance suite — the official one is
   [modelcontextprotocol/conformance](https://github.com/modelcontextprotocol/conformance),
-  which tests *new* implementations against the spec. `mcp-ready` looks at
+  which tests *new* implementations against the spec. `mcp-migration` looks at
   *existing* servers for migration hazards.
 - Not a codemod — TypeScript users should also run
-  `npx @modelcontextprotocol/codemod@beta v1-to-v2 .`; `mcp-ready` tells you
+  `npx @modelcontextprotocol/codemod@beta v1-to-v2 .`; `mcp-migration` tells you
   about the behavioural hazards a codemod can't rewrite.
 - Static findings are heuristics. S004 in particular flags state that may be
   a deliberate per-process cache — review, don't blindly delete.

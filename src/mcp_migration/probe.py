@@ -73,7 +73,7 @@ class Prober:
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json, text/event-stream",
-            "User-Agent": f"mcp-ready/{__version__}",
+            "User-Agent": f"mcp-migration/{__version__}",
             **self.base_headers, **(extra or {}),
         }
         req = urllib.request.Request(self.url, data=body, headers=headers,
@@ -163,7 +163,7 @@ class Prober:
         init = self.rpc("initialize", {
             "protocolVersion": "2025-06-18",
             "capabilities": {},
-            "clientInfo": {"name": "mcp-ready", "version": __version__},
+            "clientInfo": {"name": "mcp-migration", "version": __version__},
         })
         if init.error and not cold_ok:
             return checks, f"server unreachable: {init.error or cold.error}"
@@ -248,7 +248,7 @@ class Prober:
 
         # 5. Resource-not-found error code.
         rr = self.rpc("resources/read",
-                      {"uri": "mcp-ready://probe/does-not-exist"},
+                      {"uri": "mcp-migration://probe/does-not-exist"},
                       extra=session_hdr)
         err = rr.rpc_error
         if err is None:

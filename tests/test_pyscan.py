@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from mcp_ready.pyscan import scan_python
+from mcp_migration.pyscan import scan_python
 
 STATEFUL_SERVER = '''
 from mcp.server.fastmcp import FastMCP

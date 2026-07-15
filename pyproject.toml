@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mcp-ready"
+name = "mcp-migration"
 version = "0.1.0"
 description = "Is your MCP server ready for the 2026-07-28 spec? Scan source for hidden session state and deprecated primitives, or probe a live server for a migration readiness report."
 readme = "README.md"
@@ -24,11 +24,11 @@ dependencies = []
 dev = ["pytest>=8.0"]
 
 [project.scripts]
-mcp-ready = "mcp_ready.cli:main"
+mcp-migration = "mcp_migration.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/PoorvaJ-WW/mcp-ready"
+Homepage = "https://github.com/PoorvaJ-WW/mcp-migration"
 Changelog = "https://modelcontextprotocol.io/specification/draft/changelog"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/mcp_ready"]
+packages = ["src/mcp_migration"]

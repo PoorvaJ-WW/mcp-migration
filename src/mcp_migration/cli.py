@@ -1,4 +1,4 @@
-"""mcp-ready — is your MCP server ready for the 2026-07-28 spec?"""
+"""mcp-migration — is your MCP server ready for the 2026-07-28 spec?"""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def _use_color(choice: str) -> bool:
 def cmd_scan(args: argparse.Namespace) -> int:
     root = Path(args.path)
     if not root.exists():
-        print(f"mcp-ready: {root} does not exist", file=sys.stderr)
+        print(f"mcp-migration: {root} does not exist", file=sys.stderr)
         return 2
     findings, scanned = scan_path(root)
 
@@ -42,7 +42,7 @@ def cmd_probe(args: argparse.Namespace) -> int:
     for h in args.header or []:
         name, _, value = h.partition(":")
         if not value:
-            print(f"mcp-ready: bad --header {h!r} (want 'Name: value')",
+            print(f"mcp-migration: bad --header {h!r} (want 'Name: value')",
                   file=sys.stderr)
             return 2
         headers[name.strip()] = value.strip()
@@ -50,7 +50,7 @@ def cmd_probe(args: argparse.Namespace) -> int:
     prober = Prober(args.url, headers=headers, timeout=args.timeout)
     checks, fatal = prober.run()
     if fatal:
-        print(f"mcp-ready: {fatal}", file=sys.stderr)
+        print(f"mcp-migration: {fatal}", file=sys.stderr)
         return 2
 
     if args.format == "json":
@@ -75,12 +75,12 @@ def cmd_rules(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        prog="mcp-ready",
+        prog="mcp-migration",
         description=f"Check MCP servers for {SPEC_REVISION} spec readiness: "
                     "scan source for hidden session state and removed/"
                     "deprecated protocol features, or probe a live server.")
     parser.add_argument("--version", action="version",
-                        version=f"mcp-ready {__version__}")
+                        version=f"mcp-migration {__version__}")
     sub = parser.add_subparsers(dest="command", required=True)
 
     p_scan = sub.add_parser("scan", help="statically scan a source tree")

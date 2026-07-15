@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from mcp_ready.textscan import scan_text
+from mcp_migration.textscan import scan_text
 
 
 def _codes(tmp_path: Path, name: str, content: str) -> set[str]:

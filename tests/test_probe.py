@@ -6,7 +6,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import pytest
 
-from mcp_ready.probe import Prober
+from mcp_migration.probe import Prober
 
 
 class _FakeServer(BaseHTTPRequestHandler):
