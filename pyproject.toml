@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-ready"
+version = "0.1.0"
+description = "Is your MCP server ready for the 2026-07-28 spec? Scan source for hidden session state and deprecated primitives, or probe a live server for a migration readiness report."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "Poorva" }]
+keywords = ["mcp", "model-context-protocol", "lint", "migration", "stateless", "2026-07-28", "linter", "readiness"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+mcp-ready = "mcp_ready.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/PoorvaJ-WW/mcp-ready"
+Changelog = "https://modelcontextprotocol.io/specification/draft/changelog"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_ready"]
